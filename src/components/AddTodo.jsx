@@ -23,7 +23,9 @@ function AddTodo() {
               </Form.Group>
             </Col>
             <Col sm={2}>
-              <Button variant="success">Add</Button>
+              <Button variant="success" className="button-class">
+                Add
+              </Button>
             </Col>
           </Row>
         </Form>

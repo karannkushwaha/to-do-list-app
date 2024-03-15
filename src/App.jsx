@@ -1,7 +1,13 @@
+import AddTodo from "./components/AddTodo";
+import TodoItem from "./components/TodoItem";
+import AppName from "./components/AppName";
+
 function App() {
   return (
     <>
-      <h1>hello</h1>
+      <AppName />
+      <AddTodo />
+      <TodoItem />
     </>
   );
 }

@@ -1,8 +1,6 @@
 import { Button, Col, Container, Row } from "react-bootstrap";
-
-function TodoItem() {
-  let todoName = "karan";
-  let todoDate = "21/02/2025";
+// const TodoItem = ({ todoName, todoDate }) => {
+function TodoItem({ todoName, todoDate, onDeleteItem }) {
   return (
     <>
       <Container className="todo-item">
@@ -10,7 +8,11 @@ function TodoItem() {
           <Col sm={6}>{todoName}</Col>
           <Col sm={4}>{todoDate}</Col>
           <Col sm={2}>
-            <Button variant="danger" className="button-class">
+            <Button
+              variant="danger"
+              className="button-class"
+              onClick={() => onDeleteItem(todoName)}
+            >
               Delete
             </Button>
           </Col>

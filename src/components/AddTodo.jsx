@@ -1,26 +1,39 @@
-import { useState } from "react";
+import { useContext, useRef, useState } from "react";
 import { Button, Col, Container, Form, Row } from "react-bootstrap";
+import { TodoItemsContext } from "../store/todo-items-store";
 
-function AddTodo({ onNewItem }) {
-  const [todoName, setTotoName] = useState("");
-  const [todoDueDate, setTotoDueDate] = useState("");
-  const handleNameChange = (event) => {
-    setTotoName(event.target.value);
-    // console.log(event.target.value);
-  };
-  const handleDateChange = (event) => {
-    setTotoDueDate(event.target.value);
-    // console.log(event.target.value);
-  };
-  const handleAddItem = () => {
-    onNewItem(todoName, todoDueDate);
-    setTotoDueDate("");
-    setTotoName("");
-  };
+function AddTodo() {
+  const { addNewItem } = useContext(TodoItemsContext);
+  // const [todoName, setTotoName] = useState("");
+  // const [todoDueDate, setTotoDueDate] = useState("");
+  const todoNameElememt = useRef();
+  const todoDueDateElememt = useRef();
+
+  // const handleNameChange = (event) => {
+  //   setTotoName(event.target.value);
+  //   // console.log(event.target.value);
+  // };
+  // const handleDateChange = (event) => {
+  //   setTotoDueDate(event.target.value);
+
+  //   // console.log(event.target.value);
+  // };
+  function handleAddItem(event) {
+    event.preventDefault();
+    // console.log(event);
+    const todoName = todoNameElememt.current.value;
+    const todoDueDate = todoDueDateElememt.current.value;
+    addNewItem(todoName, todoDueDate);
+    todoDueDateElememt.current.value = "";
+    todoNameElememt.current.value = "";
+
+    // setTotoDueDate("");
+    // setTotoName("");
+  }
   return (
     <>
       <Container>
-        <Form>
+        <Form onSubmit={handleAddItem}>
           <Row>
             <Col sm={6}>
               <Form.Group
@@ -28,10 +41,12 @@ function AddTodo({ onNewItem }) {
                 controlId="exampleForm.ControlInput1"
               >
                 <Form.Control
-                  type="email"
+                  type="text"
                   placeholder="Enter Todo here"
-                  onChange={handleNameChange}
-                  value={todoName}
+                  // onChange={handleNameChange}
+                  // value={todoName}
+                  ref={todoNameElememt}
+                  required
                 />
               </Form.Group>
             </Col>
@@ -42,8 +57,10 @@ function AddTodo({ onNewItem }) {
               >
                 <Form.Control
                   type="date"
-                  onChange={handleDateChange}
-                  value={todoDueDate}
+                  // onChange={handleDateChange}
+                  // value={todoDueDate}
+                  ref={todoDueDateElememt}
+                  required
                 />
               </Form.Group>
             </Col>
@@ -51,7 +68,8 @@ function AddTodo({ onNewItem }) {
               <Button
                 variant="success"
                 className="button-class"
-                onClick={handleAddItem}
+                // onClick={handleAddItem}
+                type="submit"
               >
                 Add
               </Button>
